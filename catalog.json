@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "plugins": [
+    {
+      "id": "dev.alex-tavern.openrouter",
+      "name": "OpenRouter Provider",
+      "version": "1.0.0",
+      "description": "Adds OpenRouter as a first-class LLM provider.",
+      "license": "MIT",
+      "artifact": "artifacts/openrouter-provider-1.0.0.zip",
+      "sha256": "2907723df27ef67c11ee069b4c8fa27b296f45af8c33892836b7d7285c6ae73d"
+    },
+    {
+      "id": "dev.alex-tavern.grammar-tools",
+      "name": "Grammar Tools",
+      "version": "1.0.0",
+      "description": "Demonstrates transactional output filters and plugin state.",
+      "license": "MIT",
+      "artifact": "artifacts/grammar-tools-1.0.0.zip",
+      "sha256": "162690f0820238ed71048ce9146bbdeba371981fb88229ec7f76f5960946778d"
+    }
+  ],
+  "experiences": [
+    {
+      "manifest": "experiences/clean-writing.json",
+      "image": "assets/clean-writing.gif"
+    }
+  ]
+}
