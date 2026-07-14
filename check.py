@@ -23,7 +23,12 @@ def main() -> None:
     catalog = json.loads((root / "catalog.json").read_text(encoding="utf-8"))
     if catalog.get("schema_version") != 1:
         raise ValueError("catalog schema_version must be 1")
+    seen_releases: set[tuple[str, str]] = set()
     for entry in catalog["plugins"]:
+        release = (entry["id"], entry["version"])
+        if release in seen_releases:
+            raise ValueError(f"Duplicate catalog release for {entry['id']}@{entry['version']}")
+        seen_releases.add(release)
         source_name = Path(entry["artifact"]).stem.removesuffix(f"-{entry['version']}")
         source = next(
             path
@@ -42,7 +47,10 @@ def main() -> None:
             with zipfile.ZipFile(artifact) as archive:
                 archive.extractall(extracted)
             artifact_manifest = validate_package(extracted)
-        if artifact_manifest.plugin_id != entry["id"]:
+        if (
+            artifact_manifest.plugin_id != entry["id"]
+            or artifact_manifest.version != entry["version"]
+        ):
             raise ValueError(f"Artifact/source drift for {entry['id']}")
     for entry in catalog["experiences"]:
         parse_experience(json.loads((root / entry["manifest"]).read_text(encoding="utf-8")))
