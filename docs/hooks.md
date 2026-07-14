@@ -5,6 +5,10 @@ transactional filters are `turn.input`, `narrator.output`, `character.output`, a
 `turn.before_commit`. `turn.after_commit` is an action for effects that must happen only after the
 session state is durable.
 
+`turn.input` receives the complete input draft plus `game`, `turn_number`, and `runner` in its hook
+context. It runs after the raw `turn_input` marker and before authoritative history. Model-backed
+filters must pass that hook context to `context.model.call_json` so logging metadata is automatic.
+
 Filters may mutate their draft and return `None`, or return a replacement. Actions receive their
 context. Wrappers receive `(next, context, *args, **kwargs)`. Ordering is a deterministic DAG:
 explicit before/after edges first, then descending priority, plugin ID, and registration sequence.

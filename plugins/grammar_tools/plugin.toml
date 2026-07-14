@@ -1,11 +1,11 @@
 schema_version = 1
 id = "dev.alex-tavern.grammar-tools"
 name = "Grammar Tools"
-version = "1.0.0"
-description = "Demonstrates deterministic output filters and per-plugin configuration."
+version = "2.0.0"
+description = "Corrects character input grammar through the active structured LLM provider."
 license = "MIT"
 authors = ["Alex Tavern"]
-permissions = ["config.read", "session.state.write"]
+permissions = ["model.call"]
 dependencies = []
 
 [entrypoints]

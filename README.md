@@ -13,8 +13,10 @@ uv sync
 uv run python mcp_server.py --core-root ../roleplay
 ```
 
-The MCP can read contracts, scaffold, validate, test, pack, and inspect plugin traces. It never runs
-Git commands or publishes anything.
+The MCP can read contracts, document structured model calls, scaffold, validate, test, pack, and
+inspect plugin traces. Model-backed plugins use the core-owned `context.model.call_json` gateway;
+they never handle provider secrets or payloads. The MCP never runs Git commands or publishes
+anything.
 
 Before review, run `uv run python check.py --core-root ../roleplay`. It rejects manifest/source,
 artifact hash, Experience media, and core-contract drift.

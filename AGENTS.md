@@ -1,8 +1,8 @@
 # Plugin authoring rules
 
-Read `docs/manifest.md`, `docs/sdk.md`, and `docs/hooks.md`, then query the live core contract through
-the MCP before selecting extension points. Use MCP scaffold, validate, test, and pack tools instead
-of copying an older package.
+Read `docs/manifest.md`, `docs/sdk.md`, and `docs/hooks.md`; model-backed plugins must also read
+`docs/model-calls.md`. Then query the live core contract through the MCP before selecting extension
+points. Use MCP scaffold, validate, test, and pack tools instead of copying an older package.
 
 Plugins are trusted in-process code. Declare every meaningful access for review, but do not mistake
 permissions for a sandbox. Prefer transactional filters and namespaced `plugin_state`; use `unsafe`

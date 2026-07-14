@@ -13,11 +13,11 @@
     {
       "id": "dev.alex-tavern.grammar-tools",
       "name": "Grammar Tools",
-      "version": "1.0.0",
-      "description": "Demonstrates transactional output filters and plugin state.",
+      "version": "2.0.0",
+      "description": "Corrects character input grammar through the active structured LLM provider.",
       "license": "MIT",
-      "artifact": "artifacts/grammar-tools-1.0.0.zip",
-      "sha256": "162690f0820238ed71048ce9146bbdeba371981fb88229ec7f76f5960946778d"
+      "artifact": "artifacts/grammar-tools-2.0.0.zip",
+      "sha256": "7b4fd31f4fcbea4cfb63fad81b034dc73a22da986f30f6acee00427b8309e94e"
     }
   ],
   "experiences": [

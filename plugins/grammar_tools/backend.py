@@ -1,24 +1,58 @@
-"""Small reference filter; deliberately simple enough to inspect in one screen."""
+"""Grammar-only cleanup for the controlled character's submitted text."""
+
+from __future__ import annotations
+
+import json
+
+FIELDS = ("speech", "thought", "action")
+GRAMMAR_SCHEMA = {
+    "name": "grammar_cleanup",
+    "schema": {
+        "type": "object",
+        "properties": {field: {"type": "string"} for field in FIELDS},
+        "required": list(FIELDS),
+        "additionalProperties": False,
+    },
+}
 
 
 def setup(context) -> None:  # noqa: ANN001
-    def polish(output, hook_context):  # noqa: ANN001, ANN202
-        config = context.config.read()
-        replacements = config.get("replacements", {})
-        if not isinstance(replacements, dict):
-            return output
-        narration = output.get("narration")
-        if isinstance(narration, str):
-            for source, target in replacements.items():
-                if isinstance(source, str) and isinstance(target, str):
-                    narration = narration.replace(source, target)
-            output["narration"] = narration
-        return output
+    async def polish(turn_input, hook_context):  # noqa: ANN001, ANN202
+        original = {field: str(turn_input[field]) for field in FIELDS}
+        if not any(value.strip() for value in original.values()):
+            return turn_input
 
-    def count_turn(game, hook_context):  # noqa: ANN001, ANN202
-        state = game.plugin_state.setdefault(context.plugin_id, {})
-        state["commits"] = int(state.get("commits", 0)) + 1
-        return game
+        corrected = await context.model.call_json(
+            hook_context,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Correct only grammar, spelling, agreement, and punctuation in each "
+                        "roleplay character field. Preserve its language, meaning, voice, person, "
+                        "tense, facts, and intent. Do not embellish, summarize, translate, move "
+                        "content between fields, or mention an operator, user, or player. Return "
+                        "only the required JSON object."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": json.dumps(original, ensure_ascii=False),
+                },
+            ],
+            json_schema=GRAMMAR_SCHEMA,
+            max_tokens=1024,
+            use_configured_language=False,
+        )
+        for field in FIELDS:
+            value = corrected.get(field)
+            if not isinstance(value, str):
+                raise ValueError(f"Grammar result {field} must be a string")
+            if not original[field] and value:
+                raise ValueError(f"Grammar result populated empty field {field}")
+            if original[field].strip() and not value.strip():
+                raise ValueError(f"Grammar result erased non-empty field {field}")
+            turn_input[field] = value
+        return turn_input
 
-    context.filter("narrator.output", polish)
-    context.filter("turn.before_commit", count_turn)
+    context.filter("turn.input", polish)

@@ -2,18 +2,13 @@
   "schema_version": 1,
   "id": "clean-writing",
   "name": "Clean Writing",
-  "description": "A restrained writing pass plus OpenRouter as an optional cloud engine.",
+  "description": "Grammar correction that preserves the character's language, meaning, and voice.",
   "image": "assets/clean-writing.gif",
   "plugins": [
     {
       "id": "dev.alex-tavern.grammar-tools",
-      "version": "1.0.0",
-      "config": {
-        "replacements": {
-          " -- ": ", ",
-          " ...": "…"
-        }
-      }
+      "version": "2.0.0",
+      "config": {}
     }
   ]
 }

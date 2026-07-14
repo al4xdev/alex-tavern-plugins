@@ -47,9 +47,9 @@ def create_server(core_root: Path, hub_root: Path) -> FastMCP:
 
     @server.tool(annotations=READ_ONLY)
     def plugin_docs(document: str = "sdk") -> str:
-        """Read one authoring document: manifest, sdk, hooks, or mcp."""
-        if document not in {"manifest", "sdk", "hooks", "mcp"}:
-            raise ValueError("document must be manifest, sdk, hooks, or mcp")
+        """Read one authoring document: manifest, sdk, hooks, model-calls, or mcp."""
+        if document not in {"manifest", "sdk", "hooks", "model-calls", "mcp"}:
+            raise ValueError("document must be manifest, sdk, hooks, model-calls, or mcp")
         return (resolved_hub / "docs" / f"{document}.md").read_text(encoding="utf-8")
 
     @server.tool(annotations=READ_ONLY)
