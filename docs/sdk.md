@@ -29,3 +29,22 @@ Handlers receive normalized `{arguments, fields, files}` plus a session-bound co
 the core has validated Base64 and size. Version 1 commands are utilities: the game is an isolated
 snapshot and the command cannot advance narrative history or revision. Model-backed commands pass
 that same context to `context.model.call_json` so provider secrets and observability stay in core.
+
+## Generic config UI (`settings` contribution)
+
+`context.contribute("settings", descriptor)` declares one plugin's configuration form — there is no
+per-plugin branch anywhere in core or the frontend; the Plugin Center renders whatever schema a
+plugin declares. A descriptor is `{"fields": [...]}`, where each field requires `key`, `type` (only
+`"boolean"` in schema_version 1), `label` (a dict with at least `en`, optionally `pt-BR`), and
+`default`. A malformed descriptor fails the plugin's boot explicitly rather than producing a broken
+or silently-skipped form.
+
+The first time a plugin activates, core writes each declared field's `default` into its config
+(`context.config`) for any key not already present — so `context.config.read()` is safe to treat as
+fully populated from the plugin's very first tick onward. There is no legacy-format fallback: read
+whatever key you declared, and if it is missing or the wrong type, that is a bug in the descriptor or
+in something that wrote to the config file directly, not a case to paper over silently.
+
+The frontend mirrors this: it fetches the same descriptor from `/plugins` (the `contributions.settings`
+list) and the current value from `GET /plugins/{id}/config`, renders one toggle per boolean field
+using the shared `.toggle` component, and `PUT`s the whole config object back on change.
