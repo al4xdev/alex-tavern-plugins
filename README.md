@@ -18,6 +18,11 @@ inspect plugin traces. Model-backed plugins use the core-owned `context.model.ca
 they never handle provider secrets or payloads. The MCP never runs Git commands or publishes
 anything.
 
+The curated **Character Converter** demonstrates executable commands. Its
+`/convert-character <preset-name>` utility accepts free text or an open Character Card V1/V2/V3
+PNG/JSON, validates card metadata locally, and uses the active structured provider to produce a
+reviewable native preset draft. It does not use vision, RAG, or automatic persistence.
+
 Before review, run `uv run python check.py --core-root ../roleplay`. It rejects manifest/source,
 artifact hash, Experience media, and core-contract drift.
 

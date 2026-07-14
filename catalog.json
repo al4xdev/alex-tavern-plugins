@@ -18,6 +18,15 @@
       "license": "MIT",
       "artifact": "artifacts/grammar-tools-2.0.0.zip",
       "sha256": "7b4fd31f4fcbea4cfb63fad81b034dc73a22da986f30f6acee00427b8309e94e"
+    },
+    {
+      "id": "dev.alex-tavern.character-converter",
+      "name": "Character Converter",
+      "version": "1.0.0",
+      "description": "Converts text and open Character Card V1/V2/V3 files into reviewable native character preset drafts.",
+      "license": "MIT",
+      "artifact": "artifacts/character-converter-1.0.0.zip",
+      "sha256": "55923fc6c5de0caae4c3d3e01f82e2bcc0e38306700fe6f712511bed445c4b06"
     }
   ],
   "experiences": [
