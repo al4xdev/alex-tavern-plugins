@@ -20,3 +20,43 @@ anything.
 
 Before review, run `uv run python check.py --core-root ../roleplay`. It rejects manifest/source,
 artifact hash, Experience media, and core-contract drift.
+
+## Plugin ordering and composition
+
+Plugins that use the same hook compose as a deterministic pipeline: the output of one filter is the
+input of the next. The manifest's `[order]` table supplies the default relationship for all of a
+plugin's registrations:
+
+```toml
+[order]
+before = []
+after = ["dev.example.translator"]
+priority = 10
+```
+
+Explicit `before`/`after` edges are authoritative. Among registrations without an edge, higher
+priority runs first; remaining ties use plugin ID and registration sequence. Cycles are rejected.
+Priority controls position, not authority: a later filter can still transform the earlier result.
+
+An unusual plugin may need opposite relationships in different hooks. The backend SDK therefore
+lets each registration override the manifest defaults:
+
+```python
+def setup(context):
+    context.filter(
+        "turn.input",
+        correct_text,
+        after=("dev.example.translator",),
+        priority=10,
+    )
+    context.filter(
+        "turn.before_commit",
+        validate_state,
+        before=("dev.example.translator",),
+        priority=100,
+    )
+```
+
+Prefer manifest-level ordering for the common case. Use per-hook overrides only when the behavior
+really differs, and cover that composition in plugin tests and trace review. See
+[`docs/hooks.md`](docs/hooks.md) for the detailed execution rules.
