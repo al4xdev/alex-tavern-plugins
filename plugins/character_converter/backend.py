@@ -59,23 +59,31 @@ CHARACTER_SCHEMA = {
 
 COMMAND = {
     "name": "convert-character",
+    "title": {
+        "en": "Convert character",
+        "pt-BR": "Converter personagem",
+    },
     "summary": {
         "en": "Turn text or an open Character Card PNG/JSON into an editable preset draft.",
         "pt-BR": "Transforme texto ou um Character Card PNG/JSON aberto em um rascunho editável.",
     },
-    "usage": "/convert-character <preset-name>",
-    "arguments": [
+    "icon": "🪄",
+    "aliases": {"en": ["character"], "pt-BR": ["personagem"]},
+    "keywords": {
+        "en": ["converter", "preset", "character card"],
+        "pt-BR": ["converter", "preset", "ficha de personagem"],
+    },
+    "inputs": [
         {
             "name": "preset-name",
+            "type": "text",
             "required": True,
             "label": {"en": "Preset name", "pt-BR": "Nome do preset"},
             "hint": {
                 "en": "Lowercase letters, numbers, and hyphens, for example lyra-nightfall.",
                 "pt-BR": "Letras minúsculas, números e hífens, por exemplo lyra-nightfall.",
             },
-        }
-    ],
-    "fields": [
+        },
         {
             "name": "source-text",
             "type": "textarea",
@@ -99,7 +107,7 @@ COMMAND = {
             "max_bytes": 10 * 1024 * 1024,
         },
     ],
-    "result_kind": "character_preset_draft",
+    "result_kind": "core/character-preset-draft",
 }
 
 
@@ -285,14 +293,14 @@ async def _convert(context, source: dict[str, Any], hook_context: dict[str, Any]
 
 def setup(context) -> None:  # noqa: ANN001
     async def convert(payload, hook_context):  # noqa: ANN001, ANN202
-        preset_name = payload["arguments"]["preset-name"]
+        preset_name = payload["values"]["preset-name"]
         if not re.fullmatch(r"[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?", preset_name):
             raise CommandError(
                 "invalid_preset_name",
                 "Preset name must use 1-64 lowercase letters, numbers, or hyphens.",
                 field="preset-name",
             )
-        source_text = payload["fields"].get("source-text", "").strip()
+        source_text = payload["values"].get("source-text", "").strip()
         source_file = payload["files"].get("source-file")
         if bool(source_text) == bool(source_file):
             raise CommandError(

@@ -34,6 +34,15 @@ def test_mounts_into_the_generic_session_tools_slot() -> None:
     assert "sdk.mount('session.tools'" in _source()
 
 
+def test_registers_session_presence_action_that_opens_and_focuses_existing_panel() -> None:
+    source = _source()
+    assert "sdk.registerAction({" in source
+    assert "name: 'presence'" in source
+    assert "scope: 'session'" in source
+    assert "panel.openAndFocus()" in source
+    assert "list.querySelector('input:not(:disabled)')" in source
+
+
 def test_toggle_uses_native_checkbox_semantics_with_explicit_aria_label() -> None:
     source = _source()
     assert "input.type = 'checkbox'" in source

@@ -9,6 +9,10 @@ and cannot receive an autonomous Character call until they return.
 `Scene.present_characters` (core state) is the only source of truth. This plugin does not keep a
 mirror list in `plugin_state` or in its own configuration.
 
+The session action `/presence` opens this same mounted roster panel, expands it, refreshes the
+canonical session state, and focuses its first available control. It does not add another endpoint
+or state path.
+
 ## Configuration
 
 One setting, exposed through the generic Plugin Center config form:
@@ -37,6 +41,7 @@ One setting, exposed through the generic Plugin Center config form:
 - `session.state.write` — apply validated presence changes to `Scene.present_characters`.
 - `config.read` / `config.write` — the `allow_narrator_presence_changes` setting.
 - `frontend.dom.mount` — the per-card toggle, the session roster control, and the config form.
+- `frontend.action.register` — expose `/presence` as another entry into the mounted roster control.
 
 No `model.call`, `network`, or `unsafe` — presence changes ride the Narrator's existing structured
 turn output; this plugin never calls a model itself.

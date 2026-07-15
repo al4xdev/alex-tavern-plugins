@@ -180,10 +180,8 @@ function buildPanel(sdk) {
         }
     });
 
-    trigger.addEventListener('click', async () => {
-        const opening = body.hidden;
-        body.hidden = !body.hidden;
-        if (!opening || !session) return;
+    async function refreshPanel() {
+        if (!session) return;
         busy = true;
         setStatus(t('presence.loading'));
         try {
@@ -199,7 +197,19 @@ function buildPanel(sdk) {
             busy = false;
             render();
         }
+    }
+
+    trigger.addEventListener('click', async () => {
+        const opening = body.hidden;
+        body.hidden = !body.hidden;
+        if (opening) await refreshPanel();
     });
+
+    async function openAndFocus() {
+        body.hidden = false;
+        await refreshPanel();
+        (list.querySelector('input:not(:disabled)') || trigger).focus({ preventScroll: true });
+    }
 
     function ingest(gameState) {
         if (!gameState || !gameState.session_id) {
@@ -218,7 +228,7 @@ function buildPanel(sdk) {
         if (!body.hidden) render();
     }
 
-    return { root, ingest };
+    return { root, ingest, openAndFocus };
 }
 
 export function activate(sdk) {
@@ -228,6 +238,21 @@ export function activate(sdk) {
 
     const panel = buildPanel(sdk);
     sdk.mount('session.tools', panel.root);
+    sdk.registerAction({
+        name: 'presence',
+        title: { en: 'Character presence', 'pt-BR': 'Presença de personagens' },
+        summary: {
+            en: 'Open the current scene roster and move focus to its controls.',
+            'pt-BR': 'Abra o elenco da cena atual e mova o foco para seus controles.',
+        },
+        icon: '◉',
+        aliases: { en: [], 'pt-BR': ['presenca'] },
+        keywords: {
+            en: ['characters', 'scene', 'roster'],
+            'pt-BR': ['personagens', 'cena', 'elenco'],
+        },
+        scope: 'session',
+    }, () => panel.openAndFocus());
     sdk.hook('session.state', (gameState) => {
         panel.ingest(gameState);
         return gameState;

@@ -5,8 +5,8 @@ Backend entrypoints export `setup(context)`. The context exposes `action`, `filt
 explicit `unsafe` escape hatch. `context.model.call_json` is the sole model API: it requires JSON
 Schema, uses the active provider without exposing secrets, and owns session logging. Read
 `model-calls.md` before using it. Frontend entrypoints export `activate(sdk)` and may register
-provider adapters, hooks, or mount UI into named slots. They can also reach `window` and `document`
-through `unsafe`.
+provider adapters, hooks, slash actions, command result renderers, or mount UI into named slots.
+They can also reach `window` and `document` through `unsafe`.
 
 There is no sandbox. Permissions document accesses in the journal and support code review; they do
 not block code. A curated artifact is trusted because its complete source was reviewed and its ZIP
@@ -20,15 +20,27 @@ retried. External side effects cannot be rolled back.
 
 `context.command(descriptor, handler)` owns slash tools separately from informational contribution
 slots. Names are globally unique; a collision rejects and disables the later plugin during boot.
-Descriptors provide `en` and `pt-BR` summary/labels/hints, positional text arguments, typed form
-fields (`text`, `textarea`, or `file`), a usage string, and one result kind. The browser builds its
-autocomplete and form from this JSON rather than hardcoding plugin identity.
+Schema-v2 descriptors provide `name`, localized `title` and `summary`, `icon`, localized `aliases`
+and `keywords`, typed visible `inputs` (`text`, `textarea`, or `file`), and one namespaced
+`result_kind`. Positional arguments do not exist. The browser builds its palette and form from this
+JSON rather than hardcoding plugin identity. Descriptors using v1 `usage`, `arguments`, or `fields`
+fail explicitly.
 
-Handlers receive normalized `{arguments, fields, files}` plus a session-bound context containing
-`game`, `turn_number`, `runner`, and `operation_id`. File values contain decoded bytes only after
-the core has validated Base64 and size. Version 1 commands are utilities: the game is an isolated
-snapshot and the command cannot advance narrative history or revision. Model-backed commands pass
-that same context to `context.model.call_json` so provider secrets and observability stay in core.
+Handlers receive normalized `{values, files}` plus a session-bound context containing `game`,
+`turn_number`, `runner`, and `operation_id`. `values` contains text and textarea inputs. File values
+contain decoded bytes only after the core has validated Base64 and size. Commands are utilities:
+the game is an isolated snapshot and the command cannot advance narrative history or revision.
+
+Result kinds use `core/*` when the application owns the renderer or `<plugin-id>/*` when the plugin
+registers it with `sdk.registerCommandResultRenderer(kind, renderer)`. A tool without an available
+renderer remains visible but disabled before execution.
+
+Frontend-only actions use `sdk.registerAction(descriptor, handler)`. The descriptor uses the same
+localized discovery fields plus `scope = "global"` or `"session"`; session actions automatically
+require an open, idle session. Names and aliases share the global namespace with built-ins and
+backend tools. A collision rejects that frontend activation. Keywords are search metadata and may
+repeat. Model-backed commands pass the command context to `context.model.call_json` so provider
+secrets and observability stay in core.
 
 ## Generic config UI (`settings` contribution)
 

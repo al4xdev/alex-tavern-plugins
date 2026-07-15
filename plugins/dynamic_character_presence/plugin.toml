@@ -1,11 +1,11 @@
 schema_version = 1
 id = "dev.alex-tavern.dynamic-character-presence"
 name = "Dynamic Character Presence"
-version = "0.1.0"
+version = "0.2.0"
 description = "Lets the human mark who starts in a scene and move characters in/out mid-session, with optional Narrator control."
 license = "MIT"
 authors = ["Alex Tavern"]
-permissions = ["session.state.write", "config.read", "config.write", "frontend.dom.mount"]
+permissions = ["session.state.write", "config.read", "config.write", "frontend.dom.mount", "frontend.action.register"]
 dependencies = []
 
 [entrypoints]

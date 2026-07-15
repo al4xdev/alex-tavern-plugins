@@ -67,10 +67,23 @@ def command_for(*responses: Any):
 
 def payload(*, text: str = "", file: dict[str, Any] | None = None) -> dict[str, Any]:
     return {
-        "arguments": {"preset-name": "lyra-nightfall"},
-        "fields": {"source-text": text},
+        "values": {"preset-name": "lyra-nightfall", "source-text": text},
         "files": {"source-file": file} if file else {},
     }
+
+
+def test_command_uses_visible_schema_v2_inputs_and_core_renderer() -> None:
+    context, _ = command_for(character())
+    assert context.descriptor is not None
+    assert "arguments" not in context.descriptor
+    assert "fields" not in context.descriptor
+    assert [item["name"] for item in context.descriptor["inputs"]] == [
+        "preset-name",
+        "source-text",
+        "source-file",
+    ]
+    assert context.descriptor["aliases"]["pt-BR"] == ["personagem"]
+    assert context.descriptor["result_kind"] == "core/character-preset-draft"
 
 
 def chunk(kind: bytes, data: bytes, *, corrupt: bool = False) -> bytes:

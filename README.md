@@ -19,9 +19,18 @@ they never handle provider secrets or payloads. The MCP never runs Git commands 
 anything.
 
 The curated **Character Converter** demonstrates executable commands. Its
-`/convert-character <preset-name>` utility accepts free text or an open Character Card V1/V2/V3
+`/convert-character` tool card accepts a visible preset name, free text, or an open Character Card V1/V2/V3
 PNG/JSON, validates card metadata locally, and uses the active structured provider to produce a
 reviewable native preset draft. It does not use vision, RAG, or automatic persistence.
+
+## Slash experience review
+
+- Character Converter 1.1.0 uses the command descriptor v2 and the core preset-draft renderer.
+- Dynamic Character Presence 0.2.0 contributes `/presence`, which opens its existing session panel.
+- Grammar Tools remains an automatic `turn.input` filter; a slash toggle would duplicate its
+  generic Plugin Center setting, so this review intentionally adds none.
+- OpenRouter remains a provider adapter selected through the existing engine UI; a slash action
+  would duplicate provider configuration and is intentionally out of scope.
 
 Before review, run `uv run python check.py --core-root ../roleplay`. It rejects manifest/source,
 artifact hash, Experience media, and core-contract drift.

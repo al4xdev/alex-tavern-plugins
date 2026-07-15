@@ -1,7 +1,7 @@
 schema_version = 1
 id = "dev.alex-tavern.character-converter"
 name = "Character Converter"
-version = "1.0.0"
+version = "1.1.0"
 description = "Converts text and open Character Card V1/V2/V3 files into reviewable native character preset drafts."
 license = "MIT"
 authors = ["Alex Tavern"]

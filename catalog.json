@@ -22,20 +22,20 @@
     {
       "id": "dev.alex-tavern.character-converter",
       "name": "Character Converter",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "Converts text and open Character Card V1/V2/V3 files into reviewable native character preset drafts.",
       "license": "MIT",
-      "artifact": "artifacts/character-converter-1.0.0.zip",
-      "sha256": "55923fc6c5de0caae4c3d3e01f82e2bcc0e38306700fe6f712511bed445c4b06"
+      "artifact": "artifacts/character-converter-1.1.0.zip",
+      "sha256": "2f400171631d4cfe124b44ceb8f896fa4cd73a7e317f58fa969db9086a92283e"
     },
     {
       "id": "dev.alex-tavern.dynamic-character-presence",
       "name": "Dynamic Character Presence",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Lets the human mark who starts in a scene and move characters in/out mid-session, with optional Narrator control.",
       "license": "MIT",
-      "artifact": "artifacts/dynamic-character-presence-0.1.0.zip",
-      "sha256": "ab3dd6996d8f351535cb4fd271ab5b10312b44b6d93b28cfad56ce95ba80295d"
+      "artifact": "artifacts/dynamic-character-presence-0.2.0.zip",
+      "sha256": "fe17a490271d4d577e34591f7a2563f5149dcafded7f6e8453ab50d6b464ce18"
     }
   ],
   "experiences": [
