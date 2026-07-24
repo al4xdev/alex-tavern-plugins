@@ -1,0 +1,20 @@
+schema_version = 1
+id = "dev.alex-tavern.suggestion-preloader"
+name = "Suggestion Preloader"
+version = "1.0.0"
+description = "Pre-fetches move suggestions in the background after each turn, so they are ready while the player reads."
+license = "MIT"
+authors = ["Alex Tavern"]
+permissions = ["network"]
+dependencies = []
+
+[entrypoints]
+frontend = "frontend.js"
+
+[order]
+priority = 100
+before = []
+after = []
+
+[python]
+dependencies = []
