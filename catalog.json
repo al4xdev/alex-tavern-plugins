@@ -36,6 +36,15 @@
       "license": "MIT",
       "artifact": "artifacts/dynamic-character-presence-0.2.0.zip",
       "sha256": "fe17a490271d4d577e34591f7a2563f5149dcafded7f6e8453ab50d6b464ce18"
+    },
+    {
+      "id": "dev.alex-tavern.theme-creme",
+      "name": "Creme Theme",
+      "version": "1.0.0",
+      "description": "Warm cream palette in the Anthropic editorial style; swaps the default dark look for ivory surfaces with terracotta accents.",
+      "license": "MIT",
+      "artifact": "artifacts/theme-creme-1.0.0.zip",
+      "sha256": "b1290060322d8d651725e081ebb13da62d9b30be4b521004f73fa1dabef1cf4a"
     }
   ],
   "experiences": [

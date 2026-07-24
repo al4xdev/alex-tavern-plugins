@@ -1,0 +1,20 @@
+schema_version = 1
+id = "dev.alex-tavern.theme-creme"
+name = "Creme Theme"
+version = "1.0.0"
+description = "Warm cream palette in the Anthropic editorial style; swaps the default dark look for ivory surfaces with terracotta accents."
+license = "MIT"
+authors = ["Alex Tavern"]
+permissions = ["unsafe"]
+dependencies = []
+
+[entrypoints]
+frontend = "frontend.js"
+
+[order]
+priority = 0
+before = []
+after = []
+
+[python]
+dependencies = []
