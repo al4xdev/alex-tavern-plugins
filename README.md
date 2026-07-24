@@ -23,6 +23,11 @@ The curated **Character Converter** demonstrates executable commands. Its
 PNG/JSON, validates card metadata locally, and uses the active structured provider to produce a
 reviewable native preset draft. It does not use vision, RAG, or automatic persistence.
 
+The curated **Before the War** Experience is the default bundle for fresh Alex Tavern installs and
+the one-time application-config v1 to v2 migration. It pins Character Converter 1.1.0, Creme Theme
+1.0.0, and Suggestion Preloader 1.0.0. Suggestion Preloader prepares move suggestions after a turn
+while the player reads, using the existing core suggestion endpoint and frontend SDK.
+
 ## Slash experience review
 
 - Character Converter 1.1.0 uses the command descriptor v2 and the core preset-draft renderer.

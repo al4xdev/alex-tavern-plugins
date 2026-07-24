@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title description">
+  <title id="title">Before the War</title>
+  <desc id="description">Warm cream experience card with an arch, a sun, and three feature labels.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff8e8"/>
+      <stop offset="1" stop-color="#ead9bd"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d97b5f"/>
+      <stop offset="1" stop-color="#7b3f3a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#402f2a" flood-opacity=".2"/>
+    </filter>
+  </defs>
+  <rect width="720" height="405" rx="28" fill="url(#paper)"/>
+  <path d="M0 315C132 274 238 337 371 297c134-40 228-21 349 18v90H0z" fill="#c9a980" opacity=".52"/>
+  <circle cx="551" cy="92" r="47" fill="#e8a15f" opacity=".9"/>
+  <path d="M68 405V143c0-54 43-97 97-97s97 43 97 97v262z" fill="#5b3a33" filter="url(#shadow)"/>
+  <path d="M94 405V148c0-40 32-73 71-73s71 33 71 73v257z" fill="url(#sky)"/>
+  <path d="M111 405V252c34-12 72-12 108 0v153z" fill="#312722" opacity=".48"/>
+  <g fill="#40302b">
+    <text x="310" y="122" font-family="Georgia, serif" font-size="18" letter-spacing="5">ALEX TAVERN</text>
+    <text x="307" y="173" font-family="Georgia, serif" font-size="43">Before the War</text>
+    <text x="310" y="210" font-family="system-ui, sans-serif" font-size="17" opacity=".76">The complete starting experience.</text>
+  </g>
+  <g font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#5b3a33">
+    <rect x="309" y="255" width="116" height="38" rx="19" fill="#fffaf0" stroke="#b77962"/>
+    <text x="367" y="279" text-anchor="middle">CHARACTERS</text>
+    <rect x="437" y="255" width="91" height="38" rx="19" fill="#fffaf0" stroke="#b77962"/>
+    <text x="482.5" y="279" text-anchor="middle">CREME</text>
+    <rect x="540" y="255" width="116" height="38" rx="19" fill="#fffaf0" stroke="#b77962"/>
+    <text x="598" y="279" text-anchor="middle">SUGGESTIONS</text>
+  </g>
+  <path d="M309 328h347" stroke="#8c6355" stroke-width="2" opacity=".35"/>
+  <text x="309" y="355" font-family="Georgia, serif" font-size="15" fill="#5b3a33" opacity=".78">Everything ready before the first scene begins.</text>
+</svg>

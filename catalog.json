@@ -45,12 +45,25 @@
       "license": "MIT",
       "artifact": "artifacts/theme-creme-1.0.0.zip",
       "sha256": "b1290060322d8d651725e081ebb13da62d9b30be4b521004f73fa1dabef1cf4a"
+    },
+    {
+      "id": "dev.alex-tavern.suggestion-preloader",
+      "name": "Suggestion Preloader",
+      "version": "1.0.0",
+      "description": "Pre-fetches move suggestions in the background after each turn, so they are ready while the player reads.",
+      "license": "MIT",
+      "artifact": "artifacts/suggestion-preloader-1.0.0.zip",
+      "sha256": "56ef480aaa4708e37b05bf9a1e7d6c4c949ba6f3f1059b8c661a0904de148fd4"
     }
   ],
   "experiences": [
     {
       "manifest": "experiences/clean-writing.json",
       "image": "assets/clean-writing.gif"
+    },
+    {
+      "manifest": "experiences/before_the_war.json",
+      "image": "assets/before-the-war.svg"
     }
   ]
 }
